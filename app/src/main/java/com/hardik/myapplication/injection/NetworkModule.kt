@@ -2,6 +2,7 @@ package com.hardik.myapplication.injection
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.hardik.myapplication.network.OrderAPI
 
 import dagger.Module
 import dagger.Provides
@@ -42,10 +43,11 @@ object NetworkModule {
       .build()
   }
 
+  @Provides
+  @Singleton
+  fun provideOrderAPI(retrofit: Retrofit): OrderAPI = retrofit.create(OrderAPI::class.java)
 
   @Provides
   @Singleton
-  fun provideBaseUrl()  {
-    //TODO provide base url here
-  }
+  fun provideBaseUrl()  = "https://www.mocky.io/"
 }
