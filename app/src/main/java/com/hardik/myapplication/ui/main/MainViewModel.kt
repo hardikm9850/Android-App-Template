@@ -21,8 +21,7 @@ import kotlin.coroutines.CoroutineContext
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val fetchOrderUseCase: FetchOrderUseCase
-) :
-    ViewModel(),
+) : ViewModel(),
     CoroutineScope, UIController {
 
     val shouldShowNoInternetMessage = MutableLiveData<Error>()
