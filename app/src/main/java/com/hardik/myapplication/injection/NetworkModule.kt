@@ -2,7 +2,7 @@ package com.hardik.myapplication.injection
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.hardik.myapplication.network.OrderAPI
+import com.hardik.myapplication.network.AppleSongsApi
 
 import dagger.Module
 import dagger.Provides
@@ -45,9 +45,9 @@ object NetworkModule {
 
   @Provides
   @Singleton
-  fun provideOrderAPI(retrofit: Retrofit): OrderAPI = retrofit.create(OrderAPI::class.java)
+  fun provideOrderAPI(retrofit: Retrofit): AppleSongsApi = retrofit.create(AppleSongsApi::class.java)
 
   @Provides
   @Singleton
-  fun provideBaseUrl()  = "https://www.mocky.io/"
+  fun provideBaseUrl()  = "https://http://ax.itunes.apple.com/"
 }

@@ -8,7 +8,7 @@ import androidx.core.view.isVisible
 import com.hardik.myapplication.R
 import com.hardik.myapplication.base.Error
 import com.hardik.myapplication.base.Error.*
-import com.hardik.myapplication.database.OrderEntity
+import com.hardik.myapplication.database.SongsEntity
 import com.hardik.myapplication.ui.main.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,21 +30,18 @@ class MainActivity : AppCompatActivity() {
             shouldShowNoInternetMessage.observe(this@MainActivity) {
                 mapError(it)
             }
-            ordersLiveData.observe(this@MainActivity) {
-                setupRecyclerView(it)
-                rcvOrderList.isVisible = true
-            }
+
             shouldShowProgressbar.observe(this@MainActivity) {
                 if (it) {
                     rootNoInternet.isVisible = false
-                    rcvOrderList.isVisible = false
+                    rcvSongList.isVisible = false
                 }
                 rootProgress.isVisible = it
             }
         }
     }
 
-    private fun setupRecyclerView(list: MutableList<OrderEntity>?) {
+    private fun setupRecyclerView(list: MutableList<SongsEntity>?) {
 
     }
 
@@ -52,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         when (error) {
             NoError -> {
                 rootNoInternet.isVisible = false
-                rcvOrderList.isVisible = true
+                rcvSongList.isVisible = true
             }
             Toast -> {
                 makeText(
@@ -63,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
             Text -> {
                 rootNoInternet.isVisible = true
-                rcvOrderList.isVisible = false
+                rcvSongList.isVisible = false
             }
         }
     }
