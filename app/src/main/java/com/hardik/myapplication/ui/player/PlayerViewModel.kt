@@ -1,36 +1,32 @@
 package com.hardik.myapplication.ui.player
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.hardik.myapplication.database.SongsEntity
+import com.hardik.myapplication.ui.player.SongState.*
 
 class PlayerViewModel : ViewModel() {
-    val songName = MutableLiveData<String>()
-    val songArtist = MutableLiveData<String>()
-    val songState = MutableLiveData<SongState>()
+    val songEntity = MutableLiveData<SongsEntity>()
+    val songName = Transformations.map(songEntity, SongsEntity::name)
+    val songArtist = Transformations.map(songEntity, SongsEntity::artist)
+    val audioLink = Transformations.map(songEntity, SongsEntity::audioLink)
+    val songAlbumAvatar = Transformations.map(songEntity, SongsEntity::imageUrl)
 
-    private lateinit var currentState : SongState
-
-    fun init(songsEntity: SongsEntity) {
-        currentState = SongState.IDEAL
-
-        songName.postValue(songsEntity.name)
-        songArtist.postValue(songsEntity.artist)
-        songState.postValue(currentState)
-    }
+    var songState = MutableLiveData<SongState>(IDEAL)
 
     fun onButtonClicked() {
-        when(currentState){
-            SongState.IDEAL, SongState.PAUSE -> playSong()
-            SongState.PLAY -> pauseSong()
+        when (songState.value) {
+            IDEAL, PAUSE -> playSong()
+            PLAY -> pauseSong()
         }
     }
 
     private fun pauseSong() {
-
+        songState.postValue(PAUSE)
     }
 
     private fun playSong() {
-
+        songState.postValue(PLAY)
     }
 }

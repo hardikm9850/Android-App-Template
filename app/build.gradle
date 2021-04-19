@@ -61,6 +61,7 @@ dependencies {
     implementation 'com.tickaroo.tikxml:core:0.8.13'
     implementation 'com.tickaroo.tikxml:converter-htmlescape:0.8.13'
     implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
+    implementation 'com.google.android.exoplayer:exoplayer:2.13.3'
 
     kapt "androidx.room:room-compiler:2.2.6"
     kapt 'com.google.dagger:hilt-android-compiler:2.31.2-alpha'

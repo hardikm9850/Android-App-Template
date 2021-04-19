@@ -12,6 +12,7 @@ import com.hardik.myapplication.base.Error
 import com.hardik.myapplication.base.Error.*
 import com.hardik.myapplication.database.SongsEntity
 import com.hardik.myapplication.ui.main.adapter.SongAdapter
+import com.hardik.myapplication.ui.player.PlayerActivity
 import com.hardik.myapplication.ui.player.PlayerActivity.Companion.DATA_TAG
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onItemClicked(songsEntity: SongsEntity) {
-        with(Intent()) {
+        with(Intent(this, PlayerActivity::class.java)) {
             this.putExtra(DATA_TAG, songsEntity)
             startActivity(this)
         }
