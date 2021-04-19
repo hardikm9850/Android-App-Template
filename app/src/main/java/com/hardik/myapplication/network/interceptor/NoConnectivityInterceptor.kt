@@ -1,8 +1,8 @@
-package com.hardik.tinder.network.interceptor
+package com.hardik.myapplication.network.interceptor
 
 import android.net.ConnectivityManager
+import com.hardik.myapplication.util.extension.isConnected
 import com.hardik.tinder.network.exception.NoConnectivityException
-import com.hardik.tinder.util.isConnected
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject

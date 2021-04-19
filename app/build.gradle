@@ -12,11 +12,15 @@ android {
 
     defaultConfig {
         applicationId "com.hardik.myapplication"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -56,6 +60,7 @@ dependencies {
     implementation 'com.tickaroo.tikxml:annotation:0.8.13'
     implementation 'com.tickaroo.tikxml:core:0.8.13'
     implementation 'com.tickaroo.tikxml:converter-htmlescape:0.8.13'
+    implementation 'com.tickaroo.tikxml:retrofit-converter:0.8.13'
 
     kapt "androidx.room:room-compiler:2.2.6"
     kapt 'com.google.dagger:hilt-android-compiler:2.31.2-alpha'

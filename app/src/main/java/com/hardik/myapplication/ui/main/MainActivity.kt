@@ -1,22 +1,25 @@
-package com.hardik.myapplication.ui
+package com.hardik.myapplication.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hardik.myapplication.R
 import com.hardik.myapplication.base.Error
 import com.hardik.myapplication.base.Error.*
 import com.hardik.myapplication.database.SongsEntity
-import com.hardik.myapplication.ui.main.MainViewModel
+import com.hardik.myapplication.ui.main.adapter.SongAdapter
+import com.hardik.myapplication.ui.player.PlayerActivity.Companion.DATA_TAG
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
-
+    private lateinit var adapter : SongAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             shouldShowNoInternetMessage.observe(this@MainActivity) {
                 mapError(it)
             }
-
             shouldShowProgressbar.observe(this@MainActivity) {
                 if (it) {
                     rootNoInternet.isVisible = false
@@ -38,11 +40,27 @@ class MainActivity : AppCompatActivity() {
                 }
                 rootProgress.isVisible = it
             }
+            songsData.observe(this@MainActivity){
+                rcvSongList.isVisible = true
+                setupRecyclerView(it)
+            }
+            init()
         }
     }
 
-    private fun setupRecyclerView(list: MutableList<SongsEntity>?) {
+    private fun setupRecyclerView(list: List<SongsEntity>) {
+        adapter = SongAdapter(list){
+            onItemClicked(it)
+        }
+        rcvSongList.adapter = adapter
+        rcvSongList.layoutManager = LinearLayoutManager(applicationContext)
+    }
 
+    private fun onItemClicked(songsEntity: SongsEntity) {
+        with(Intent()) {
+            this.putExtra(DATA_TAG, songsEntity)
+            startActivity(this)
+        }
     }
 
     private fun mapError(error: Error?) {
